@@ -517,6 +517,10 @@ def main():
     checkpointing_steps = args.checkpointing_steps
     if checkpointing_steps is not None and checkpointing_steps.isdigit():
         checkpointing_steps = int(checkpointing_steps)
+        
+    # Make sure we checkpoint at least once by checkingpointing at the end of the training
+    if checkpointing_steps is not None and (checkpointing_steps > args.max_train_steps):
+        checkpointing_steps = args.max_train_steps
 
     # We need to initialize the trackers we use, and also store our configuration.
     # The trackers initializes automatically on the main process.
